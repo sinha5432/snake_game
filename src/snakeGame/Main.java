@@ -16,7 +16,7 @@ public class Main {
 
         // set windows size to desired dimensions
         Container c = obj.getContentPane();
-        Dimension d = new Dimension(645,645);
+        Dimension d = new Dimension(656,656);
         c.setPreferredSize(d);
         obj.pack();
 
