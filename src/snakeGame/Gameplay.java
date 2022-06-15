@@ -17,7 +17,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private int score = 0;
 
     private Timer timer;
-    private int delay = 4;
+    private int delay = 64;
 
     private int tileSide = 16;
     private int windowSide = 640;
@@ -30,8 +30,18 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     }
 
 
-    private int headPosX = 20; // random(41, 0);
-    private int headPosY = 20; //random(41, 0);
+    private int headPosX = random(41, 0);
+    private int headPosY = random(41, 0);
+
+    private int direction = random(4, 0);
+    
+    /*
+     * Direction:
+     *      0 = UP
+     *      1 = LEFT
+     *      2 = DOWN
+     *      3 = RIGHT
+     */
 
 
     public Gameplay() {
@@ -72,6 +82,25 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        if(play){
+
+            if(direction == 0 && headPosY > 1) {
+                moveUP();
+            }
+            else if(direction == 1 && headPosX > 1) {
+                moveLEFT();
+            }
+            else if(direction == 2 && headPosY < tileNumbers - 1) {
+                moveDOWN();
+            }
+            else if(direction == 3 && headPosX < tileNumbers - 1) {
+                moveRIGHT();
+            }
+
+        }
+
+        
         
         repaint();
         
@@ -86,60 +115,41 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     public void keyPressed(KeyEvent e) {
         
         if(e.getKeyCode() == KeyEvent.VK_W) {
-            // System.out.println("W detected");
-            if(headPosY <= 1) {
-                headPosY = 1;
-            }
-            else {
-                moveUP();
-            }
+            play = true;
+            direction = 0;
+            
         }
 
         else if(e.getKeyCode() == KeyEvent.VK_A) {
-            if(headPosX <= 1) {
-                headPosX = 1;
-            }
-            else {
-                moveLEFT();
-            }
+            play = true;
+            direction = 1;
+            
         }
         else if(e.getKeyCode() == KeyEvent.VK_S) {
-            if(headPosY >= tileNumbers - 1) {
-                headPosY = tileNumbers - 1;
-            }
-            else {
-                moveDOWN();
-            }
+            play = true;
+            direction = 2;
         }
 
         else if(e.getKeyCode() == KeyEvent.VK_D) {
-            if(headPosX >= tileNumbers - 1) {
-                headPosX = tileNumbers - 1;
-            }
-            else {
-                moveRIGHT();
-            }
+            play = true;
+            direction = 3;
         }
         
     }
 
     public void moveUP() {
-        play = true;
         headPosY--;
     }
 
     public void moveDOWN() {
-        play = true;
         headPosY++;
     }
 
     public void moveLEFT() {
-        play = true;
         headPosX--;
     }
 
     public void moveRIGHT() {
-        play = true;
         headPosX++;
     }
 
