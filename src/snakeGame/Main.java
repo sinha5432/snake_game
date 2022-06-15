@@ -1,16 +1,28 @@
 package snakeGame;
 
+import java.awt.Container;
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 
 public class Main {
 
     public static void main(String[] args) {
         JFrame obj = new JFrame();
-        obj.setBounds(0, 0, 640, 480);
+        Gameplay gamePlay = new Gameplay();
         obj.setTitle("SNAKE");
-        obj.setResizable(false);
-        obj.setLocationRelativeTo(null);
         obj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        obj.add(gamePlay);
+
+        // set windows size to desired dimensions
+        Container c = obj.getContentPane();
+        Dimension d = new Dimension(645,645);
+        c.setPreferredSize(d);
+        obj.pack();
+
+        
+        obj.setLocationRelativeTo(null);
+        obj.setResizable(false);
         obj.setVisible(true);
     }
     
