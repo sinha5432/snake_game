@@ -5,12 +5,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Collections;
+
 
 public class Snake {
 
     private int tileSide = 16;
   
-    private int points = 3;
+    private int points = 5;
 
     
     public void setPoints(int a) {
@@ -22,9 +24,10 @@ public class Snake {
     }
 
 
-    private ArrayList<Integer> posX = new ArrayList<Integer>();
-    private ArrayList<Integer> posY = new ArrayList<Integer>();
-
+    // private ArrayList<Integer> posX = new ArrayList<Integer>();
+    // private ArrayList<Integer> posY = new ArrayList<Integer>();
+    
+    private ArrayList<int[]> pos = new ArrayList<int[]>(); 
     
     
 
@@ -39,45 +42,35 @@ public class Snake {
 
     }
 
-    private boolean ready1 = false;
-    private boolean ready2 = false;
+    
 
     public void drawSnake(int x, int y, Graphics g) {
 
 
-        if(this.posX.size() < this.points) {
-            this.posX.add(x);
-        }
-        else if(this.posX.get(posX.size()-1) != x) {
-            this.posX.add(x);
-        }
-        else{
-            ready1 = true;
+        while(pos.size() < points)
+        {   
+            int[] temp = {x,y};
+            pos.add(temp);
         }
 
-        if(this.posY.size() < this.points) {
-            this.posY.add(y);
+        if(pos.size() < points)
+        {
+            int[] temp = {x,y};
+            pos.add(temp);
         }
-        else if(this.posY.get(this.posY.size()-1) != y) {
-            this.posY.add(y);
+        else
+        {
+            Collections.rotate(pos, pos.size()-1);
+            int[] temp = {x,y};
+            pos.set(pos.size()-1, temp);
+            
         }
-        else{
-            ready2 = true;
-        }
-        
-        
 
        
-        if(ready1 && ready2) {
-
-            for(int i=1; i<=this.points; i++) {
-                drawSnakeSegment((Graphics2D)g, this.posX.get(this.posX.size() - i), this.posY.get(this.posY.size() - i));
-
-                System.out.println("posY = " + posY);
-                
-            }
-
+        for(int i=0; i<this.points; i++) {
+            drawSnakeSegment((Graphics2D)g, this.pos.get(i)[0], this.pos.get(i)[1]);
         }
+        
         
         
         
