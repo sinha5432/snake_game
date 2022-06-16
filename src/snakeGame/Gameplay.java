@@ -14,7 +14,8 @@ import javax.swing.Timer;
 public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     private boolean play = false;
-    private int score = 0;
+
+    private Snake snake = new Snake();
 
     private Timer timer;
     private int delay = 64;
@@ -32,6 +33,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     private int headPosX = random(41, 0);
     private int headPosY = random(41, 0);
+
+    
 
     private int direction = random(4, 0);
     
@@ -55,7 +58,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
 
 
-
     public void paint(Graphics g) {
         //background
         g.setColor(Color.BLACK);
@@ -70,9 +72,11 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.fillRect(640, 0, 16, 656);
 
         //snake head
-        g.setColor(Color.red);
-        g.fillRect(headPosX*tileSide, headPosY*tileSide, tileSide, tileSide);
+        // g.setColor(Color.red);
+        // g.fillRect(headPosX*tileSide, headPosY*tileSide, tileSide, tileSide);
 
+        snake.drawSnake(headPosX, headPosY, g);
+       
 
         g.dispose();
 
