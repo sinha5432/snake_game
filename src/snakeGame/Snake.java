@@ -12,22 +12,23 @@ public class Snake {
 
     private int tileSide = 16;
   
-    private int points = 5;
+    private int points = 3;
 
     
     public void setPoints(int a) {
         this.points = a;
     }
 
-    public int getPoints(int a) {
+    public int getPoints() {
         return this.points;
     }
 
-
-    // private ArrayList<Integer> posX = new ArrayList<Integer>();
-    // private ArrayList<Integer> posY = new ArrayList<Integer>();
     
-    private ArrayList<int[]> pos = new ArrayList<int[]>(); 
+    private ArrayList<int[]> pos = new ArrayList<int[]>();
+
+    public ArrayList<int[]> getPos() {
+        return this.pos;
+    }
     
     
 
@@ -70,13 +71,8 @@ public class Snake {
         for(int i=0; i<this.points; i++) {
             drawSnakeSegment((Graphics2D)g, this.pos.get(i)[0], this.pos.get(i)[1]);
         }
-        
-        
-        
-        
+           
     }
-
-
     
     
 }

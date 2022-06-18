@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JPanel;
@@ -31,8 +32,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     }
 
 
-    private int headPosX = random(41, 0);
-    private int headPosY = random(41, 0);
+    private int headPosX = random(39, 2);
+    private int headPosY = random(39, 2);
 
     
 
@@ -46,6 +47,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
      *      3 = RIGHT
      */
 
+    private int foodX = random(39, 2);
+    private int foodY = random(39, 2);
 
     public Gameplay() {
         addKeyListener(this);
@@ -57,24 +60,48 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     }
 
 
+    public void placeFood() {
+        ArrayList<int[]> pos = this.snake.getPos();
+        this.foodX = random(41, 0);
+        this.foodY = random(41, 0);
+
+        int[] temp = {this.foodX, this.foodY};
+        while(pos.contains(temp)) {
+            this.foodX = random(40, 1);
+            this.foodY = random(40, 1);
+
+            temp[0] = this.foodX;
+            temp[1] = this.foodY;
+        }
+        
+    }
+
 
     public void paint(Graphics g) {
         //background
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, 645, 645);
 
+
         //border
-        
         g.setColor(new Color(0, 128, 0));
         g.fillRect(0, 0, 16, 656);
         g.fillRect(0, 0, 656, 16);
         g.fillRect(0, 640, 656, 16);
         g.fillRect(640, 0, 16, 656);
 
-        //snake head
-        // g.setColor(Color.red);
-        // g.fillRect(headPosX*tileSide, headPosY*tileSide, tileSide, tileSide);
 
+        //food
+        if(headPosX == foodX && headPosY == foodY) {
+            placeFood();
+            this.snake.setPoints(this.snake.getPoints()+1);
+        }
+        g.setColor(Color.blue);
+        g.fillOval(this.foodX*tileSide, this.foodY*tileSide, tileSide, tileSide);
+              
+
+
+        //snake
         snake.drawSnake(headPosX, headPosY, g);
        
 
