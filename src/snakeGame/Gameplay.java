@@ -38,14 +38,20 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     
 
     private int direction = random(4, 0);
-    
-    /*
+
+     /*
      * Direction:
      *      0 = UP
      *      1 = LEFT
      *      2 = DOWN
      *      3 = RIGHT
      */
+
+
+     
+    private int collision_meter = 0; //To make sure its a collision
+    
+   
 
     private int foodX = random(39, 2);
     private int foodY = random(39, 2);
@@ -98,11 +104,30 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         }
         g.setColor(Color.blue);
         g.fillOval(this.foodX*tileSide, this.foodY*tileSide, tileSide, tileSide);
+
+
+        //checking self as well as boundary collision
+
+        if(this.snake.isColliding(headPosX, headPosY, direction)) 
+        {
+            collision_meter++;
+        }
+        else {
+            collision_meter = 0;
+        }
+
+
+        if(collision_meter >= 3) {
+            System.out.println("Colliding");
+        }
+        else {
+            System.out.println("Not colliding");
+        }
+
               
-
-
         //snake
         snake.drawSnake(headPosX, headPosY, g);
+
        
 
         g.dispose();
@@ -130,6 +155,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             }
 
         }
+        
 
         
         

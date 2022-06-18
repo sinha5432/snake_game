@@ -12,8 +12,8 @@ public class Snake {
 
     private int tileSide = 16;
   
-    private int points = 3;
-
+    private int points = 7;
+    
     
     public void setPoints(int a) {
         this.points = a;
@@ -73,6 +73,24 @@ public class Snake {
         }
            
     }
+
+
+    public boolean isColliding(int x, int y, int dir) {
+
+    //    TODO: Implement Self Collision
+
+        
+        if( (x == 1 && dir == 1) || (x == 39 && dir == 3) ||
+            (y == 1 && dir== 0) || (y == 39 && dir == 2)
+        ) {
+            return true;
+        }
+
+        return false;
+       
+    }
+
+  
     
     
 }
